@@ -1,0 +1,32 @@
+@mixin clearfix {
+  &:after {
+    clear: both;
+    content: "\200B";
+    display: block;
+    height: 0;
+  }
+}
+.react-swipe-views{
+  position: relative;
+  min-height:220px;
+  background: #eee;
+  &,
+  & *{
+    box-sizing: border-box;
+  }
+
+  &-wrapper{
+    border:1px solid #F00;
+    position: relative;
+    overflow: hidden;
+    width:100%;
+  }
+
+  &-scroller{
+    @include clearfix;
+  }
+
+  &-item{
+    float: left;
+  }
+}
