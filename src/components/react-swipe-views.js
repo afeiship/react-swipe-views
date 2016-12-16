@@ -53,14 +53,10 @@ export default class extends React.Component{
   fomratItems(){
     if(this.props.infinite){
       var items = this.props.items;
-      var first,last;
-      if(this.props.infinite){
-        first = items[0];
-        last = items[items.length - 1];
-        items.push(first);
-        items.unshift(last);
-      }
-      return items;
+      var first = items[0];
+      var last = items[items.length - 1];
+      items.push(first);
+      items.unshift(last);
     }
   }
 
