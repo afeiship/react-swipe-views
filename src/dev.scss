@@ -1,5 +1,10 @@
 *{margin: 0;padding:0;}
 ul,li{list-style: none;}
+$red: random(256)-1;
+$green: random(256)-1;
+$blue: random(256)-1;
+
+
 
 .hello-react-swipe-views{
   color:#F00;
@@ -22,5 +27,8 @@ ul,li{list-style: none;}
     &:focus{
       outline: none;
     }
+  }
+  [class*="item-"]{
+    padding:20px;
   }
 }

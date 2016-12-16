@@ -8,18 +8,24 @@
 }
 .react-swipe-views{
   position: relative;
-  min-height:220px;
+  height:220px;
   background: #eee;
   &,
   & *{
     box-sizing: border-box;
   }
 
+  &-wrapper,
+  &-scroller,
+  &-item{
+    height: 100%;
+  }
+
+
   &-wrapper{
     border:1px solid #F00;
     position: relative;
     overflow: hidden;
-    width:100%;
   }
 
   &-scroller{

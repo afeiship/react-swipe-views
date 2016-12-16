@@ -1,91 +1,154 @@
 import './style.scss';
 import classNames from 'classnames';
 import Swipeable from 'react-swipeable';
-import Utils from './react-swipe-views-utils';
-import Measure from 'react-dimensions';
 
 
-class ReactSwipeViews extends React.Component{
+export default class extends React.Component{
   static propTypes = {
     cssClass:React.PropTypes.string,
-    activeIndex:React.PropTypes.number,
+    duration:React.PropTypes.number,
+    animate:React.PropTypes.string,
     items:React.PropTypes.array,
     itemTemplate:React.PropTypes.func,
+    activeIndex:React.PropTypes.number,
+    infinite:React.PropTypes.bool,
   };
 
   static defaultProps = {
-    activeIndex:0,
     duration:0.3,
+    animate:'linear',
     items:[],
-    itemTemplate:function(inItem){
-      return inItem;
-    }
+    itemTemplate:null,
+    activeIndex: 0,
+    infinite:true
   };
 
-  constructor(props) {
+  constructor(props){
     super(props);
-    this.state = {
-      activeIndex: props.activeIndex,
-      items: props.items,
-      itemTemplate: props.itemTemplate,
+    this.fomratItems();
+    this.state={
+      animate:props.animate,
       duration: props.duration,
-      translateX: 0,
-      dimensions: {}
+      items: props.items,
+      itemTemplate:props.itemTemplate,
+      activeIndex: props.activeIndex,
+      infinite:props.infinite,
+      translateX: 0
     };
-    this._length = props.items.length;
+
+    this._additional = Number(this.props.infinite);
+    this._index = props.activeIndex + this._additional;
   }
 
   componentWillMount(){
-    this.toIndex();
+    // this.toIndex(this.state.activeIndex + this._additional);
+    this.toIndex(this._index);
   }
 
-  toIndex(){
-    let state = this.state;
-    Utils.toIndex(state.items,state.activeIndex);
-    this.state.translateX = `-${100/this._length*(this.state.activeIndex + 1)}%`;
-    this.setState(this.state);
+  componentDidMount() {
+    var root = this._root = this.refs.root;
+    this._bound = root.getBoundingClientRect();
   }
 
-  _onSwipedLeft(){console.log('_onSwipedLeft..')}
-  _onSwipedRight(){console.log('_onSwipedRight..')}
-  _onSwipingLeft(){console.log('_onSwipingLeft..')}
-  _onSwipingRight(){console.log('_onSwipingRight..')}
+  fomratItems(){
+    if(this.props.infinite){
+      var items = this.props.items;
+      var first,last;
+      if(this.props.infinite){
+        first = items[0];
+        last = items[items.length - 1];
+        items.push(first);
+        items.unshift(last);
+      }
+      return items;
+    }
+  }
+
+  toIndex(inIndex){
+    var activeIndex = this.getAbsIndex(inIndex);
+    var index = this.props.infinite ? inIndex : activeIndex;
+    this.setState({
+      activeIndex:activeIndex,
+      duration:this.props.duration,
+      translateX:`-${index * 100/this.props.items.length}%`
+    });
+  }
+
+  _onSwipedLeft(ev){
+    var activeIndex = this.state.activeIndex + 1;
+    this.toIndex(activeIndex);
+  }
+
+  _onSwipedRight(ev){
+    var activeIndex = this.state.activeIndex - 1;
+    this.toIndex(activeIndex);
+  }
+
+  _onSwipingLeft(ev,deltaX){
+    var _translateX = this.state.activeIndex * this._bound.width;
+    this.setState({
+      duration:0,
+      translateX:`-${_translateX+deltaX}px`
+    });
+  }
+
+  _onSwipingRight(ev,deltaX){
+    var _translateX = this.state.activeIndex * this._bound.width;
+    this.setState({
+      duration:0,
+      translateX: `${-_translateX+deltaX}px`
+    });
+  }
+
+  getAbsIndex(inIndex){
+    var activeIndex = inIndex;
+    var _length = this.props.items.length -1;
+    if(this.props.infinite){
+      if(activeIndex == 0){
+        activeIndex = _length - 1;
+      }
+
+      if(activeIndex == _length){
+        activeIndex = 1;
+      }
+    }else{
+      if (activeIndex <= 0) {
+        activeIndex=0;
+      }
+      if (activeIndex >= _length) {
+        activeIndex = _length;
+      }
+    }
+
+    return activeIndex;
+  }
+
 
   render(){
     return (
-      <Measure onMeasure={(dimensions) => {
-          console.log(dimensions);
-          this.setState({dimensions})
-        }}>
-        <div className={classNames('react-swipe-views',this.props.cssClass)}>
-          <Swipeable className="react-swipe-views-wrapper"
-            onSwipedLeft={this._onSwipedLeft.bind(this)}
-            onSwipedRight={this._onSwipedRight.bind(this)}
-            onSwipingLeft={this._onSwipingLeft.bind(this)}
-            onSwipingRight={this._onSwipingRight.bind(this)}>
+      <div ref="root" className={classNames('react-swipe-views',this.props.cssClass)}>
+        <Swipeable flickThreshold={0.2} delta={10} preventDefaultTouchmoveEvent className="react-swipe-views-wrapper"
+          onSwipingLeft={this._onSwipingLeft.bind(this)}
+          onSwipingRight={this._onSwipingRight.bind(this)}
+          onSwipedLeft={this._onSwipedLeft.bind(this)}
+          onSwipedRight={this._onSwipedRight.bind(this)}
+          >
             <div className="react-swipe-views-scroller"
               style={{
-                width:`${100*this._length}%`,
-                transition:`transform ${this.state.duration}s`,
+                width:`${this.props.items.length*100}%`,
+                transition:`transform ${this.state.duration}s ${this.props.animate}`,
                 transform:`translateX(${this.state.translateX})`
               }}>
-              {this.state.items.map((item,index) => {
+              {this.props.items.map(function(item,index){
                 return (
-                    <div className="react-swipe-views-item"
-                      key={index}
-                      style={{
-                        width:`${100/this._length}%`
-                      }}>
-                      {this.state.itemTemplate(item)}
-                    </div>
-                );
-              })}
+                  <div className="react-swipe-views-item" key={index} style={{ width:`${100/this.props.items.length}%`}}>
+                    {this.props.itemTemplate ? this.props.itemTemplate(item,index) : item}
+                  </div>
+                )
+              }.bind(this))}
             </div>
-          </Swipeable>
-        </div>
-      </Measure>
+        </Swipeable>
+      </div>
     );
   }
 }
-
-export default ReactSwipeViews;
