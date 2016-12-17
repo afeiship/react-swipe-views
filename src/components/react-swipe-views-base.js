@@ -74,12 +74,12 @@ export default class extends React.Component{
     //to be implement!
   }
 
-  onSwipedNext(ev){
+  next(ev){
     this._index++;
     this.toIndex();
   }
 
-  onSwipedPrev(ev) {
+  prev(ev) {
     this._index--;
     this.toIndex();
   }
@@ -108,8 +108,8 @@ export default class extends React.Component{
           <Swipeable flickThreshold={0.2} delta={10} preventDefaultTouchmoveEvent className="react-swipe-views-wrapper"
             onSwipingLeft={this.onSwipingNext.bind(this)}
             onSwipingRight={this.onSwipingPrev.bind(this)}
-            onSwipedLeft={this.onSwipedNext.bind(this)}
-            onSwipedRight={this.onSwipedPrev.bind(this)}
+            onSwipedLeft={this.next.bind(this)}
+            onSwipedRight={this.prev.bind(this)}
             style={{
               width:`${this.state.bound.width}px`
             }}
@@ -138,8 +138,8 @@ export default class extends React.Component{
           <Swipeable flickThreshold={0.2} delta={10} preventDefaultTouchmoveEvent className="react-swipe-views-wrapper"
             onSwipingUp={this.onSwipingNext.bind(this)}
             onSwipingDown={this.onSwipingPrev.bind(this)}
-            onSwipedUp={this.onSwipedNext.bind(this)}
-            onSwipedDown={this.onSwipedPrev.bind(this)}
+            onSwipedUp={this.next.bind(this)}
+            onSwipedDown={this.prev.bind(this)}
             style={{
               height:`${this.state.bound.height}px`
             }}
