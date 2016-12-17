@@ -9,7 +9,7 @@ class App extends React.Component{
   }
 
   _click(inIndex){
-    ReactSwipeViewsInfinite.getInstance('test1').play(inIndex);
+    this.refs.test1.play(inIndex);
   }
   _change1(state){
     console.log(state);
@@ -25,7 +25,7 @@ class App extends React.Component{
           <button onClick={this._click.bind(this,3)}>To index 3</button>
         </p>
         <ReactSwipeViewsInfinite
-          delegateHandle="test1"
+          ref="test1"
           unit='width'
           duration={0.4}
           activeIndex={0}

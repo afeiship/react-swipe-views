@@ -2,12 +2,9 @@ import './style.scss';
 import classNames from 'classnames';
 import Swipeable from 'react-swipeable';
 
-let instanceMap = {};
-
 export default class extends React.Component{
   static propTypes = {
     cssClass:React.PropTypes.string,
-    delegateHandle:React.PropTypes.string,
     unit:React.PropTypes.string,
     animate:React.PropTypes.string,
     duration:React.PropTypes.number,
@@ -27,10 +24,6 @@ export default class extends React.Component{
     itemTemplate:null,
     activeIndex: 0
   };
-
-  static getInstance(inHandle){
-    return instanceMap[inHandle] || null;
-  }
 
   constructor(props){
     super(props);
@@ -54,7 +47,6 @@ export default class extends React.Component{
     this.setState({
       bound:this.refs.root.getBoundingClientRect()
     });
-    this.props.delegateHandle && (instanceMap[this.props.delegateHandle]=this);
   }
 
   play(inIndex){
