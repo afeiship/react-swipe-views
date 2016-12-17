@@ -78,9 +78,11 @@ export default class extends React.Component{
   }
 
   syncState(){
-    this.setState({
-      activeIndex: this._index - this._boundary.min
-    });
+    setTimeout(()=>{
+      this.setState({
+        activeIndex: this._index - this._boundary.min
+      });
+    })
   }
 
   next(ev){
