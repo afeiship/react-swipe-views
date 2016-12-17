@@ -16,6 +16,7 @@ export default class extends React.Component{
     activeIndex:React.PropTypes.number,
     onNext:React.PropTypes.func,
     onPrev:React.PropTypes.func,
+    onChange:React.PropTypes.func,
   };
 
   static defaultProps = {
@@ -87,12 +88,14 @@ export default class extends React.Component{
     this._index++;
     this.toIndex();
     this.props.onNext && (this.props.onNext(this.state));
+    this.props.onChange && (this.props.onChange(this.state));
   }
 
   prev(ev) {
     this._index--;
     this.toIndex();
     this.props.onPrev && (this.props.onNext(this.state));
+    this.props.onChange && (this.props.onChange(this.state));
   }
 
   onSwipingNext(ev, delta) {
