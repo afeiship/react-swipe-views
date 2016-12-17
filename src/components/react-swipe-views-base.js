@@ -55,8 +55,9 @@ export default class extends React.Component{
   }
 
   play(inIndex){
-    this._index = inIndex+1;
+    this._index = inIndex + this._boundary.min;
     this.slide();
+    this.syncState();
   }
 
   slide(){
@@ -71,7 +72,13 @@ export default class extends React.Component{
   }
 
   updateIndex(){
-    //to be implement!
+
+  }
+
+  syncState(){
+    this.setState({
+      activeIndex: this._index - this._boundary.min
+    });
   }
 
   next(ev){

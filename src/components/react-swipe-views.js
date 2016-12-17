@@ -19,6 +19,7 @@ export default class extends ReactSwipeViewsBase{
   toIndex(){
     this.updateIndex();
     this.slide();
+    this.syncState();
   }
 
   updateIndex(){
