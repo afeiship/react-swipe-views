@@ -59,8 +59,7 @@ export default class extends React.Component{
 
   play(inIndex){
     this._index = inIndex + this._boundary.min;
-    this.slide();
-    this.syncState();
+    this.toIndex();
   }
 
   slide(){
@@ -87,15 +86,19 @@ export default class extends React.Component{
   next(ev){
     this._index++;
     this.toIndex();
-    this.props.onNext && (this.props.onNext(this.state));
-    this.props.onChange && (this.props.onChange(this.state));
+    setTimeout(()=>{
+      this.props.onNext && (this.props.onNext(this.state));
+      this.props.onChange && (this.props.onChange(this.state));
+    })
   }
 
   prev(ev) {
     this._index--;
     this.toIndex();
-    this.props.onPrev && (this.props.onNext(this.state));
-    this.props.onChange && (this.props.onChange(this.state));
+    setTimeout(()=>{
+      this.props.onPrev && (this.props.onNext(this.state));
+      this.props.onChange && (this.props.onChange(this.state));
+    })
   }
 
   onSwipingNext(ev, delta) {

@@ -11,7 +11,9 @@ class App extends React.Component{
   _click(inIndex){
     ReactSwipeViewsInfinite.getInstance('test1').play(inIndex);
   }
-
+  _change1(state){
+    console.log(state);
+  }
   render(){
     return (
       <div className="hello-react-swipe-views">
@@ -27,6 +29,7 @@ class App extends React.Component{
           unit='width'
           duration={0.4}
           activeIndex={0}
+          onChange={this._change1.bind(this)}
           itemTemplate={(item,index)=>this._itemTemplate(item,index)}
           items={
             [
@@ -49,6 +52,7 @@ class App extends React.Component{
             unit='height'
             duration={0.4}
             activeIndex={0}
+            onChange={this._change1.bind(this)}
             itemTemplate={(item,index)=>this._itemTemplate(item,index)}
             items={
               [
