@@ -57,7 +57,7 @@ export default class extends React.Component{
   slide(){
     this.setState({
       duration:this.props.duration,
-      translate:`-${this._index * 100/this.props.items.length}%`
+      translate:`-${this._index * 100/this._length}%`
     });
   }
 
