@@ -8,11 +8,22 @@ class App extends React.Component{
     return <div className={`item-${inIndex}`}><img src={inItem.url} /></div>
   }
 
+  _click(inIndex){
+    ReactSwipeViewsInfinite.getInstance('test1').play(inIndex);
+  }
+
   render(){
     return (
       <div className="hello-react-swipe-views">
-        <h3>ReactSwipeViewsInfinite[1,2,3,4]</h3>
+        <h3>ReactSwipeViewsInfinite[1,2,3,4]--X</h3>
+        <p style={{textAlign:'center'}}>
+          <button onClick={this._click.bind(this,0)}>To index 0</button>
+          <button onClick={this._click.bind(this,1)}>To index 1</button>
+          <button onClick={this._click.bind(this,2)}>To index 2</button>
+          <button onClick={this._click.bind(this,3)}>To index 3</button>
+        </p>
         <ReactSwipeViewsInfinite
+          delegateHandle="test1"
           unit='width'
           duration={0.4}
           activeIndex={0}
@@ -33,9 +44,9 @@ class App extends React.Component{
               }
             ]
           } />
-        <h3>ReactSwipeViews[4,5,6]</h3>
+        <h3>ReactSwipeViews[4,5,6]--Y</h3>
           <ReactSwipeViews
-            unit='width'
+            unit='height'
             duration={0.4}
             activeIndex={0}
             itemTemplate={(item,index)=>this._itemTemplate(item,index)}

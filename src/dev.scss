@@ -8,17 +8,16 @@ $blue: random(256)-1;
 
 .hello-react-swipe-views{
   color:#F00;
-  padding:100px 20px;
+  padding:20px 20px;
   position: relative;
   button{
     background: #3cc51f;
-    width:100%;
-    display: block;
     margin-bottom: 10px;
     border-radius: 10px;
     color:#FFF;
-    padding:20px;
+    padding:12px;
     border: none;
+    margin-right: 10px;
 
     &:active{
       background: darken(#3cc51f,10%);
@@ -34,5 +33,12 @@ $blue: random(256)-1;
       width:100%;
       display: block;
     }
+  }
+  h3{
+    margin: 10px auto;
+    text-align: center;
+  }
+  .react-swipe-views-height{
+    height:250px;
   }
 }

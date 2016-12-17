@@ -18,9 +18,8 @@ export default class extends ReactSwipeViewsBase{
 
   toIndex(){
     this.updateIndex();
-    this.play();
+    this.slide();
   }
-
 
   updateIndex(){
     if (this._index > this._boundary.max) {

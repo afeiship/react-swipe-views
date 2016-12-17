@@ -2,10 +2,12 @@ import './style.scss';
 import classNames from 'classnames';
 import Swipeable from 'react-swipeable';
 
+let instanceMap = {};
 
 export default class extends React.Component{
   static propTypes = {
     cssClass:React.PropTypes.string,
+    delegateHandle:React.PropTypes.string,
     unit:React.PropTypes.string,
     animate:React.PropTypes.string,
     duration:React.PropTypes.number,
@@ -23,6 +25,10 @@ export default class extends React.Component{
     activeIndex: 0
   };
 
+  static getInstance(inHandle){
+    return instanceMap[inHandle] || null;
+  }
+
   constructor(props){
     super(props);
     this.state = {
@@ -32,7 +38,8 @@ export default class extends React.Component{
       items: props.items,
       itemTemplate:props.itemTemplate,
       activeIndex: props.activeIndex,
-      translate: 0
+      translate: 0,
+      bound:{}
     };
   }
 
@@ -41,10 +48,18 @@ export default class extends React.Component{
   }
 
   componentDidMount() {
-    this._bound = this.refs.root.getBoundingClientRect();
+    this.setState({
+      bound:this.refs.root.getBoundingClientRect()
+    });
+    this.props.delegateHandle && (instanceMap[this.props.delegateHandle]=this);
   }
 
-  play(){
+  play(inIndex){
+    this._index = inIndex+1;
+    this.slide();
+  }
+
+  slide(){
     this.setState({
       duration:this.props.duration,
       translate:`-${this._index * 100/this.props.items.length}%`
@@ -59,7 +74,6 @@ export default class extends React.Component{
     //to be implement!
   }
 
-
   onSwipedNext(ev){
     this._index++;
     this.toIndex();
@@ -71,15 +85,15 @@ export default class extends React.Component{
   }
 
   onSwipingNext(ev, delta) {
-    var _translate = this._index * this._bound[this.state.unit];
+    var _translate = this._index * this.state.bound[this.state.unit];
     this.setState({
       duration: 0,
-      translate: `-${_translate+delta}px`
+      translate: `${-_translate-delta}px`
     });
   }
 
   onSwipingPrev(ev,delta){
-    var _translate = this._index * this._bound[this.state.unit];
+    var _translate = this._index * this.state.bound[this.state.unit];
     this.setState({
       duration:0,
       translate: `${-_translate+delta}px`
@@ -96,12 +110,17 @@ export default class extends React.Component{
             onSwipingRight={this.onSwipingPrev.bind(this)}
             onSwipedLeft={this.onSwipedNext.bind(this)}
             onSwipedRight={this.onSwipedPrev.bind(this)}
+            style={{
+              width:`${this.state.bound.width}px`
+            }}
             >
               <div className="react-swipe-views-scroller"
                 style={{
                   width:`${this._length*100}%`,
                   transition:`transform ${this.state.duration}s ${this.state.animate}`,
-                  transform:`translate(${this.state.translate},0)`
+                  WebkitTransition:`transform ${this.state.duration}s ${this.state.animate}`,
+                  transform:`translate(${this.state.translate},0)`,
+                  WebkitTransform:`translate(${this.state.translate},0)`
                 }}>
                 {this.props.items.map(function(item,index){
                   return (
@@ -121,12 +140,17 @@ export default class extends React.Component{
             onSwipingDown={this.onSwipingPrev.bind(this)}
             onSwipedUp={this.onSwipedNext.bind(this)}
             onSwipedDown={this.onSwipedPrev.bind(this)}
+            style={{
+              height:`${this.state.bound.height}px`
+            }}
             >
               <div className="react-swipe-views-scroller"
                 style={{
                   height:`${this._length*100}%`,
                   transition:`transform ${this.state.duration}s ${this.state.animate}`,
-                  transform:`translate(0,${this.state.translate})`
+                  WebkitTransition:`transform ${this.state.duration}s ${this.state.animate}`,
+                  transform:`translate(0,${this.state.translate})`,
+                  WebkitTransform:`translate(0,${this.state.translate})`
                 }}>
                 {this.props.items.map(function(item,index){
                   return (
