@@ -29,6 +29,10 @@ $blue: random(256)-1;
     }
   }
   [class*="item-"]{
-    padding:20px;
+    // padding:20px;
+    img{
+      width:100%;
+      display: block;
+    }
   }
 }

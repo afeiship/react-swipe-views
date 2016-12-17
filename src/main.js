@@ -1,2 +1,6 @@
 import ReactSwipeViews from 'components/react-swipe-views';
-export default ReactSwipeViews;
+import ReactSwipeViewsInfinite from 'components/react-swipe-views-infinite';
+module.exports = {
+  ReactSwipeViews,
+  ReactSwipeViewsInfinite
+};
