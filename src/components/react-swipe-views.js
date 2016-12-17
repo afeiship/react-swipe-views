@@ -8,7 +8,7 @@ export default class extends ReactSwipeViewsBase{
 
   constructor(props){
   	super(props);
-  	this._index = this.props.activeIndex;
+    this._index = this.props.activeIndex;
     this._length = props.items.length;
     this._boundary = {
       min: 0,
