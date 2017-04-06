@@ -1,6 +1,8 @@
 import './style.scss';
+import React,{PropTypes} from 'react';
 import classNames from 'classnames';
-import Swipeable from 'react-swipeable';
+import ReactSwipeable from 'react-swipeable';
+import ReactSwipeableViews from 'react-swipeable-views';
 import ReactSwipeViewsBase from './react-swipe-views-base';
 
 
@@ -25,7 +27,7 @@ export default class extends ReactSwipeViewsBase{
 
     this._index = this.props.activeIndex + 1;
   }
-  
+
   toIndex(){
     this.slide();
     this.updateIndex();

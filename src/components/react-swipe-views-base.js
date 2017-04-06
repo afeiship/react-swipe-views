@@ -1,15 +1,21 @@
 import './style.scss';
+import React,{PropTypes} from 'react';
 import classNames from 'classnames';
-import Swipeable from 'react-swipeable';
-import SwipeableViews from 'react-swipeable-views';
+import ReactSwipeable from 'react-swipeable';
+import ReactSwipeableViews from 'react-swipeable-views';
 
-export default class extends SwipeableViews{
+export default class extends ReactSwipeableViews{
+
+  static propTypes = {
+    className: PropTypes.string
+  };
+
   render(){
     return (
-      <div ref="root" className={classNames('react-swipe-views',`react-swipe-views-${this.state.unit}`,this.props.cssClass)}>
+      <div ref="root" className={classNames('react-swipe-views',`react-swipe-views-${this.state.unit}`,this.props.className)}>
         {
           this.state.unit === 'width' &&
-          <Swipeable flickThreshold={0.2} delta={10} preventDefaultTouchmoveEvent className="react-swipe-views-wrapper"
+          <ReactSwipeable flickThreshold={0.2} delta={10} preventDefaultTouchmoveEvent className="react-swipe-views-wrapper"
             onSwipingLeft={this.onSwipingNext.bind(this)}
             onSwipingRight={this.onSwipingPrev.bind(this)}
             onSwipedLeft={this.next.bind(this)}
@@ -34,12 +40,12 @@ export default class extends SwipeableViews{
                   )
                 }.bind(this))}
               </div>
-          </Swipeable>
+          </ReactSwipeable>
         }
 
         {
           this.state.unit === 'height' &&
-          <Swipeable flickThreshold={0.2} delta={10} preventDefaultTouchmoveEvent className="react-swipe-views-wrapper"
+          <ReactSwipeable flickThreshold={0.2} delta={10} preventDefaultTouchmoveEvent className="react-swipe-views-wrapper"
             onSwipingUp={this.onSwipingNext.bind(this)}
             onSwipingDown={this.onSwipingPrev.bind(this)}
             onSwipedUp={this.next.bind(this)}
@@ -64,7 +70,7 @@ export default class extends SwipeableViews{
                   )
                 }.bind(this))}
               </div>
-          </Swipeable>
+          </ReactSwipeable>
         }
       </div>
     );
