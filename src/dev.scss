@@ -27,13 +27,10 @@ $blue: random(256)-1;
       outline: none;
     }
   }
-  [class*="item-"]{
-    // padding:20px;
     img{
       width:100%;
       display: block;
     }
-  }
   h3{
     margin: 10px auto;
     text-align: center;
