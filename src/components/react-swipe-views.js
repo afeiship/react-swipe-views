@@ -29,7 +29,6 @@ export default class extends ReactSwipeViewsBase{
     this.syncState();
   }
 
-
   updateIndex(){
     if (this._index > this._boundary.max) {
       this._index = this._boundary.max;

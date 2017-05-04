@@ -1,3 +1,4 @@
+import {cloneElement} from 'react';
 import ReactSwipeViewsBase from './react-swipe-views-base';
 
 export default class extends ReactSwipeViewsBase{
@@ -16,9 +17,11 @@ export default class extends ReactSwipeViewsBase{
   }
 
   processItems(inProps){
-    var items = inProps.children;
-    var first = items[0];
-    var last = items[items.length - 1];
+    let items = inProps.children.map(child=>{
+      return cloneElement(child);
+    });
+    let first = items[0];
+    let last = items[items.length - 1];
     items.push(first);
     items.unshift(last);
 

@@ -13,7 +13,7 @@ class App extends React.Component{
     items2:[
       require('./assets/4_s.jpg'),
       require('./assets/5_s.jpg'),
-      require('./assets/6_s.jpg'),
+      require('./assets/6_s.jpg')
     ],
     dynamicItems:[
       require('./assets/2_s.jpg'),
@@ -30,7 +30,7 @@ class App extends React.Component{
 
   _click2(){
     const {dynamicItems} = this.state;
-    console.log('set dynamic');
+    console.log('set dynamic.');
     this.setState({
       items1:dynamicItems.slice(0)
     })
