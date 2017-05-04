@@ -8,7 +8,6 @@ export default class extends ReactSwipeViewsBase{
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    super.componentWillReceiveProps(nextProps, nextContext)
     this.processItems(nextProps);
     this.setState({
       translate:`-${this._index * 100/ this._length}%`
