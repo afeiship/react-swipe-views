@@ -1,36 +1,25 @@
-import {cloneElement} from 'react';
 import ReactSwipeViewsBase from './react-swipe-views-base';
 
 export default class extends ReactSwipeViewsBase{
 
   constructor(props){
   	super(props);
-    this.processItems(props);
-  }
-
-  componentWillReceiveProps(nextProps, nextContext) {
-    console.log('next props',nextProps,this);
-    this.processItems(nextProps);
-    this.setState({
-      translate:`-${this._index * 100/ this._length}%`
-    });
-  }
-
-  processItems(inProps){
-    let items = inProps.children.map(child=>{
-      return cloneElement(child);
-    });
-    let first = items[0];
-    let last = items[items.length - 1];
-    items.push(first);
-    items.unshift(last);
-
-    this._index = inProps.activeIndex + 1;
-    this._length = inProps.children.length;
+    this.processItems();
+    this._length = props.children.length;
     this._boundary = {
       min: 1,
       max: this._length - 2
     };
+  }
+
+  processItems(){
+    var items = this.props.children;
+    var first = items[0];
+    var last = items[items.length - 1];
+    items.push(first);
+    items.unshift(last);
+
+    this._index = this.props.activeIndex + 1;
   }
 
   toIndex(){
