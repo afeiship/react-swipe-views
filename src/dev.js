@@ -30,8 +30,9 @@ class App extends React.Component{
 
   _click2(){
     const {dynamicItems} = this.state;
+    console.log('set dynamic');
     this.setState({
-      items1:dynamicItems
+      items1:dynamicItems.slice(0)
     })
   }
   render(){
