@@ -1,25 +1,17 @@
 import ReactSwipeViewsBase from './react-swipe-views-base';
 
-export default class extends ReactSwipeViewsBase{
+export default class extends ReactSwipeViewsBase {
 
-  constructor(props){
-  	super(props);
-    this._index = this.props.activeIndex;
-    this._length = props.children.length;
+  processItems(inProps) {
+    this._index = inProps.activeIndex;
+    this._length = inProps.children.length;
     this._boundary = {
       min: 0,
       max: this._length - 1
     };
   }
 
-  toIndex(){
-    this.updateIndex();
-    this.slide();
-    this.syncState();
-  }
-
-
-  updateIndex(){
+  updateIndex() {
     if (this._index > this._boundary.max) {
       this._index = this._boundary.max;
     }
