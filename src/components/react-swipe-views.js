@@ -4,8 +4,19 @@ export default class extends ReactSwipeViewsBase{
 
   constructor(props){
   	super(props);
-    this._index = this.props.activeIndex;
-    this._length = props.children.length;
+    this.processItems(props);
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    this.processItems(nextProps);
+    this.setState({
+      translate:`-${this._index * 100/ this._length}%`
+    });
+  }
+
+  processItems(inProps){
+    this._index = inProps.activeIndex;
+    this._length = inProps.children.length;
     this._boundary = {
       min: 0,
       max: this._length - 1
