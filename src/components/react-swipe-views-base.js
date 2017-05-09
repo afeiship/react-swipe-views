@@ -1,8 +1,11 @@
 import './style.scss';
+
 import React, {Children, PropTypes} from 'react';
-import classNames from 'classnames';
+
 import ReactSwipeable from 'react-swipeable';
 import ReactSwipeableViews from 'react-swipeable-views';
+import classNames from 'classnames';
+import objectAssign from 'object-assign';
 
 export default class extends ReactSwipeableViews {
 
@@ -19,7 +22,7 @@ export default class extends ReactSwipeableViews {
     if (nextProps.children !== this.props.children) {
       this.processItems(nextProps);
       this.setState(
-        Object.assign({
+        objectAssign({
           translate: `-${this._index * 100 / this._length}%`
         }, nextProps)
       );
