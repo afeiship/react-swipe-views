@@ -5,12 +5,25 @@ import React, {Children, PropTypes} from 'react';
 import ReactSwipeable from 'react-swipeable';
 import ReactSwipeableViews from 'react-swipeable-views';
 import classNames from 'classnames';
+import noop from 'noop';
 import objectAssign from 'object-assign';
 
 export default class extends ReactSwipeableViews {
 
   static propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    followFinger:PropTypes.bool,
+  };
+
+  static defaultProps = {
+    followFinger:true,
+    unit:'width',
+    animate:'linear',
+    duration:0.3,
+    activeIndex: 0,
+    onNext:noop,
+    onPrev:noop,
+    onChange:noop
   };
 
   constructor(props) {
@@ -72,6 +85,18 @@ export default class extends ReactSwipeableViews {
           onSwipedUp: this.next.bind(this),
           onSwipedDown: this.prev.bind(this),
         };
+    }
+  }
+
+  onSwipingNext(ev, delta) {
+    if(this.props.followFinger){
+      super.onSwipingNext(ev, delta);
+    }
+  }
+
+  onSwipingPrev(ev,delta){
+    if(this.props.followFinger){
+      super.onSwipingPrev(ev, delta);
     }
   }
 
