@@ -1,6 +1,6 @@
 import './dev.scss';
-import {ReactSwipeViews, ReactSwipeViewsInfinite} from './main';
 
+import {ReactSwipeViews, ReactSwipeViewsInfinite} from './main';
 
 class App extends React.Component {
   state = {
@@ -55,6 +55,7 @@ class App extends React.Component {
           unit='width'
           duration={0.4}
           activeIndex={0}
+          followFinger={true}
           onChange={this._change1.bind(this)}>
           {
             items1.map((item, index) => {
