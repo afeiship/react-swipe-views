@@ -3,11 +3,15 @@ import ReactSwipeViewsBase from './react-swipe-views-base';
 export default class extends ReactSwipeViewsBase {
 
   processItems(inProps) {
+    const {followFinger} = inProps;
     let items = inProps.children;
     let first = items[0];
     let last = items[items.length - 1];
-    items.push(first);
-    items.unshift(last);
+
+    if(followFinger){
+      items.push(first);
+      items.unshift(last);
+    }
 
     this._index = inProps.activeIndex + 1;
     this._length = inProps.children.length;
