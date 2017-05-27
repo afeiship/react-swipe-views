@@ -89,14 +89,20 @@ export default class extends ReactSwipeableViews {
   }
 
   onSwipingNext(ev, delta) {
-    if(this.props.followFinger){
-      super.onSwipingNext(ev, delta);
-    }
+    this.__onSwipingItem('onSwipingNext',ev,delta);
   }
 
   onSwipingPrev(ev,delta){
+    this.__onSwipingItem('onSwipingPrev',ev,delta);
+  }
+
+  __onSwipingItem(inMethod,ev,delta){
     if(this.props.followFinger){
-      super.onSwipingPrev(ev, delta);
+      super[inMethod](ev, delta);
+    }else{
+      this.setState({
+        duration:0,
+      });
     }
   }
 
