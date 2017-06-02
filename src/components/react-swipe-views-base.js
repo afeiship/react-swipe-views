@@ -1,7 +1,8 @@
 import './style.scss';
 
-import React, {Children, PropTypes} from 'react';
+import React, {Children} from 'react';
 
+import PropTypes from 'prop-types';
 import ReactSwipeable from 'react-swipeable';
 import ReactSwipeableViews from 'react-swipeable-views';
 import classNames from 'classnames';
