@@ -56,16 +56,16 @@ export default class extends ReactSwipeableViews {
           width: `${this._length * 100}%`,
           transition: `transform ${this.state.duration}s ${this.state.animate}`,
           WebkitTransition: `transform ${this.state.duration}s ${this.state.animate}`,
-          transform: `translate(${this.state.translate},0)`,
-          WebkitTransform: `translate(${this.state.translate},0)`
+          transform: `translate3d(${this.state.translate},0)`,
+          WebkitTransform: `translate3d(${this.state.translate},0)`
         };
       case 'height':
         return {
           height: `${this._length * 100}%`,
           transition: `transform ${this.state.duration}s ${this.state.animate}`,
           WebkitTransition: `transform ${this.state.duration}s ${this.state.animate}`,
-          transform: `translate(0,${this.state.translate})`,
-          WebkitTransform: `translate(0,${this.state.translate})`
+          transform: `translate3d(0,${this.state.translate})`,
+          WebkitTransform: `translate3d(0,${this.state.translate})`
         };
     }
   }
