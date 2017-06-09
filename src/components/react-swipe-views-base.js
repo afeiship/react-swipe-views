@@ -20,7 +20,7 @@ export default class extends ReactSwipeableViews {
     followFinger:true,
     unit:'width',
     animate:'linear',
-    duration:0.3,
+    duration:0.2,
     activeIndex: 0,
     onNext:noop,
     onPrev:noop,
@@ -56,16 +56,16 @@ export default class extends ReactSwipeableViews {
           width: `${this._length * 100}%`,
           transition: `transform ${this.state.duration}s ${this.state.animate}`,
           WebkitTransition: `transform ${this.state.duration}s ${this.state.animate}`,
-          transform: `translate3d(${this.state.translate},0)`,
-          WebkitTransform: `translate3d(${this.state.translate},0)`
+          transform: `translate3d(${this.state.translate},0,0)`,
+          WebkitTransform: `translate3d(${this.state.translate},0,0)`
         };
       case 'height':
         return {
           height: `${this._length * 100}%`,
           transition: `transform ${this.state.duration}s ${this.state.animate}`,
           WebkitTransition: `transform ${this.state.duration}s ${this.state.animate}`,
-          transform: `translate3d(0,${this.state.translate})`,
-          WebkitTransform: `translate3d(0,${this.state.translate})`
+          transform: `translate3d(0,${this.state.translate,0})`,
+          WebkitTransform: `translate3d(0,${this.state.translate,0})`
         };
     }
   }
@@ -112,7 +112,7 @@ export default class extends ReactSwipeableViews {
     return (
       <div ref="root"
            className={classNames('react-swipe-views', `react-swipe-views-${this.state.unit}`, this.props.className)}>
-        <ReactSwipeable flickThreshold={0.2} delta={10}
+        <ReactSwipeable flickThreshold={0.6} delta={10}
                         preventDefaultTouchmoveEvent
                         className="react-swipe-views-wrapper"
                         {...this.getEvents()}
