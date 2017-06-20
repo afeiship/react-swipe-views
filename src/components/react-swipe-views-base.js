@@ -43,7 +43,7 @@ export default class extends ReactSwipeableViews {
       this.processItems(nextProps);
       this.setState(
         objectAssign({
-          translate: `-${this._index * 100 / this._length}%`
+          translate: `-${this._index * 100 / this.state.width}%`
         }, nextProps)
       );
     }
@@ -104,7 +104,7 @@ export default class extends ReactSwipeableViews {
     return (
       <div ref="root"
            className={classNames('react-swipe-views', `react-swipe-views-${this.state.unit}`, this.props.className)}>
-        <ReactSwipeable flickThreshold={0.2} delta={10}
+        <ReactSwipeable flickThreshold={0.2} delta={0}
                         preventDefaultTouchmoveEvent
                         className="react-swipe-views-wrapper"
                         {...this.getEvents()}
