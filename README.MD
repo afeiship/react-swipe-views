@@ -74,3 +74,6 @@ class App extends React.Component{
   }
 }
 ```
+
+## todo:
+- [ ] IOS7 animation not fluency.
