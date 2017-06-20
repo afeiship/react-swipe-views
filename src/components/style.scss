@@ -19,6 +19,8 @@
   }
 
   &-item{
+    user-select: none;
+    -webkit-user-select: none;
     float: left;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
