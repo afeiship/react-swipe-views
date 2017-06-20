@@ -43,7 +43,7 @@ export default class extends ReactSwipeableViews {
       this.processItems(nextProps);
       this.setState(
         objectAssign({
-          translate: `-${this._index * 100 / this.state.width}%`
+          translate: `-${this._index * 100 / this._length}%`
         }, nextProps)
       );
     }
