@@ -12,14 +12,12 @@ import objectAssign from 'object-assign';
 export default class extends ReactSwipeableViews {
 
   static propTypes = {
-    className: PropTypes.string,
-    followFinger:PropTypes.bool,
+    className: PropTypes.string
   };
 
   static defaultProps = {
-    followFinger:true,
     unit:'width',
-    animate:'linear',
+    animate:'ease',
     duration:0.3,
     activeIndex: 0,
     onNext:noop,
@@ -100,31 +98,13 @@ export default class extends ReactSwipeableViews {
     }
   }
 
-  onSwipingNext(ev, delta) {
-    this.__onSwipingItem('onSwipingNext',ev,delta);
-  }
-
-  onSwipingPrev(ev,delta){
-    this.__onSwipingItem('onSwipingPrev',ev,delta);
-  }
-
-  __onSwipingItem(inMethod,ev,delta){
-    if(this.props.followFinger){
-      super[inMethod](ev, delta);
-    }else{
-      this.setState({
-        duration:0,
-      });
-    }
-  }
-
   render() {
     const {unit} = this.state;
     const {bound} = this.state;
     return (
       <div ref="root"
            className={classNames('react-swipe-views', `react-swipe-views-${this.state.unit}`, this.props.className)}>
-        <ReactSwipeable flickThreshold={0} delta={10}
+        <ReactSwipeable flickThreshold={0.2} delta={10}
                         preventDefaultTouchmoveEvent
                         className="react-swipe-views-wrapper"
                         {...this.getEvents()}
