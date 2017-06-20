@@ -20,12 +20,20 @@ export default class extends ReactSwipeableViews {
     followFinger:true,
     unit:'width',
     animate:'linear',
-    duration:0.2,
+    duration:0.3,
     activeIndex: 0,
     onNext:noop,
     onPrev:noop,
     onChange:noop
   };
+
+  get bound(){
+    const {root} = this.refs;
+    if(root){
+      return root.getBoundingClientRect();
+    }
+    return null;
+  }
 
   constructor(props) {
     super(props);
@@ -43,6 +51,11 @@ export default class extends ReactSwipeableViews {
     }
   }
 
+  componentDidMount() {
+    this.setState({bound: this.bound})
+  }
+
+
   toIndex() {
     this.slide();
     this.updateIndex();
@@ -54,16 +67,14 @@ export default class extends ReactSwipeableViews {
       case 'width':
         return {
           width: `${this._length * 100}%`,
-          transition: `transform ${this.state.duration}s ${this.state.animate}`,
-          WebkitTransition: `transform ${this.state.duration}s ${this.state.animate}`,
-          transform: `translate3d(${this.state.translate},0,0)`,
+          WebkitTransition: `-webkit-transform ${this.state.duration}s ${this.state.animate}`,
           WebkitTransform: `translate3d(${this.state.translate},0,0)`
         };
       case 'height':
         return {
           height: `${this._length * 100}%`,
           transition: `transform ${this.state.duration}s ${this.state.animate}`,
-          WebkitTransition: `transform ${this.state.duration}s ${this.state.animate}`,
+          WebkitTransition: `-webkit-transform ${this.state.duration}s ${this.state.animate}`,
           transform: `translate3d(0,${this.state.translate,0})`,
           WebkitTransform: `translate3d(0,${this.state.translate,0})`
         };
@@ -109,6 +120,7 @@ export default class extends ReactSwipeableViews {
 
   render() {
     const {unit} = this.state;
+    const {bound} = this.state;
     return (
       <div ref="root"
            className={classNames('react-swipe-views', `react-swipe-views-${this.state.unit}`, this.props.className)}>
@@ -122,7 +134,7 @@ export default class extends ReactSwipeableViews {
 
             {Children.map(this.props.children, (child, index) => {
               return (
-                <div className="react-swipe-views-item" key={index} style={{[unit]: `${100 / this._length}%`}}>
+                <div className="react-swipe-views-item" key={index} style={{[unit]: bound.width }}>
                   {child}
                 </div>
               )
