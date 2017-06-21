@@ -5,10 +5,7 @@ import {ReactSwipeViews, ReactSwipeViewsInfinite} from './main';
 class App extends React.Component {
   state = {
     items1: [
-      require('./assets/1_s.jpg'),
-      require('./assets/2_s.jpg'),
-      require('./assets/3_s.jpg'),
-      require('./assets/4_s.jpg')
+      require('./assets/1_s.jpg')
     ],
     items2: [
       require('./assets/4_s.jpg'),
